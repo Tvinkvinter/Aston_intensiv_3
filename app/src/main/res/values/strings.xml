@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Aston_intensiv_3</string>
+
+    <string name="contacts_add_btn">Add new contact</string>
+    <string name="contacts_delete_mode_btn_description">Activate delete mode</string>
+    <string name="contacts_delete_btn">Delete</string>
+    <string name="contacts_cancel_btn">Cancel</string>
+
+    <string name="add_edit_screen_hint_name">Name</string>
+    <string name="add_edit_screen_hint_lastname">Lastname</string>
+    <string name="add_edit_screen_hint_phone_number">Phone Number</string>
+    <string name="add_edit_screen_btn_save">Save</string>
+    <string name="add_edit_screen_btn_cancel">Cancel</string>
+
 </resources>
