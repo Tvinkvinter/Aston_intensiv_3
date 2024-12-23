@@ -10,9 +10,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.atarusov.aston_intensiv_3.R
 import com.atarusov.aston_intensiv_3.adapter.ContactsAdapter
+import com.atarusov.aston_intensiv_3.adapter.ContactsTouchCallback
 import com.atarusov.aston_intensiv_3.databinding.FragmentContactsBinding
 import com.atarusov.aston_intensiv_3.viewmodel.ContactsViewModel
 import kotlinx.coroutines.launch
@@ -47,6 +49,10 @@ class ContactsFragment : Fragment() {
                 viewModel.onItemSelect(selectedContactId)
             })
         binding.rvContacts.adapter = rvAdapter
+
+        val itemTouchHelper = ItemTouchHelper(ContactsTouchCallback(viewModel))
+        itemTouchHelper.attachToRecyclerView(binding.rvContacts)
+
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {

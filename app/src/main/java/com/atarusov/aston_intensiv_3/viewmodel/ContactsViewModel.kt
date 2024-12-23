@@ -42,6 +42,13 @@ class ContactsViewModel : ViewModel() {
         switchDeleteMode(false)
     }
 
+    fun moveItem(fromPosition: Int, toPosition: Int) {
+        val updatedContacts = _contacts.value.toMutableList()
+        val contact = updatedContacts.removeAt(fromPosition)
+        updatedContacts.add(toPosition, contact)
+        _contacts.value = updatedContacts
+    }
+
     private fun addNewContact(contact: Contact) {
         _contacts.value = _contacts.value.apply { add(contact) }
     }
