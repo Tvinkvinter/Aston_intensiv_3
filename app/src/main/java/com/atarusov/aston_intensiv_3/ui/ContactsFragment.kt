@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.atarusov.aston_intensiv_3.R
 import com.atarusov.aston_intensiv_3.adapter.ContactsAdapter
-import com.atarusov.aston_intensiv_3.adapter.ContactsTouchCallback
+import com.atarusov.aston_intensiv_3.utils.ContactsTouchCallback
 import com.atarusov.aston_intensiv_3.databinding.FragmentContactsBinding
 import com.atarusov.aston_intensiv_3.viewmodel.ContactsViewModel
 import kotlinx.coroutines.launch

@@ -1,4 +1,4 @@
-package com.atarusov.aston_intensiv_3.adapter
+package com.atarusov.aston_intensiv_3.utils
 
 import androidx.recyclerview.widget.DiffUtil
 import com.atarusov.aston_intensiv_3.model.Contact

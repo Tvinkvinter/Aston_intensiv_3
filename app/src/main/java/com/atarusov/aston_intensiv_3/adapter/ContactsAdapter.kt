@@ -1,18 +1,15 @@
 package com.atarusov.aston_intensiv_3.adapter
 
-import android.annotation.SuppressLint
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.atarusov.aston_intensiv_3.databinding.ContactItemBinding
 import com.atarusov.aston_intensiv_3.model.Contact
+import com.atarusov.aston_intensiv_3.utils.ContactsDiffUtil
 
 class ContactsAdapter(
-    private val onItemClickListener: (Long) -> Unit,
-    private val onItemSelectListener: (Long) -> Unit,
-) : RecyclerView.Adapter<ContactsAdapter.ContactsViewHolder>() {
+    onItemClickListener: (Long) -> Unit,
+    onItemSelectListener: (Long) -> Unit,
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var deleteMode = false
         set(value) {
@@ -30,33 +27,23 @@ class ContactsAdapter(
             diffResult.dispatchUpdatesTo(this)
         }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactsViewHolder {
-        val binding = ContactItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ContactsViewHolder(binding)
+    private val delegateAdapters: List<DelegateAdapter> = listOf(
+        ContactWithoutCheckboxDelegateAdapter(onItemClickListener),
+        ContactWithCheckboxDelegateAdapter(onItemSelectListener),
+    )
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return delegateAdapters[viewType].onCreateViewHolder(parent)
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        delegateAdapters[getItemViewType(position)].onBindViewHolder(holder, contacts[position])
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (deleteMode) 1 else 0
     }
 
     override fun getItemCount(): Int = contacts.size
 
-    @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: ContactsViewHolder, position: Int) {
-        with(holder) {
-            val contact = contacts[position]
-
-            binding.tvNameLastname.text = "${contact.name} ${contact.lastname}"
-            binding.tvPhoneNumber.text = contact.phoneNumber
-            itemView.setOnClickListener {
-                onItemClickListener.invoke(contact.id)
-            }
-
-            binding.checkbox.visibility = if (deleteMode) View.VISIBLE else View.GONE
-            binding.checkbox.isChecked = contact.isSelected
-
-            binding.checkbox.setOnClickListener {
-                onItemSelectListener.invoke(contact.id)
-            }
-        }
-    }
-
-    inner class ContactsViewHolder(val binding: ContactItemBinding) :
-        RecyclerView.ViewHolder(binding.root)
 }
