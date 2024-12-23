@@ -41,9 +41,11 @@ class ContactsFragment : Fragment() {
 
         val rvAdapter = ContactsAdapter(
             onItemClickListener = { contactId: Long ->
-                val action = ContactsFragmentDirections
-                    .actionContactsFragmentToAddEditContactFragment(contactId)
-                findNavController().navigate(action)
+                if (!viewModel.deleteMode.value) {
+                    val action = ContactsFragmentDirections
+                        .actionContactsFragmentToAddEditContactFragment(contactId)
+                    findNavController().navigate(action)
+                }
             },
             onItemSelectListener = { selectedContactId ->
                 viewModel.onItemSelect(selectedContactId)
